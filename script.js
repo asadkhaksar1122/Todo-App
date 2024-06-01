@@ -100,11 +100,10 @@ function add() {
 
     setTimeout(() => {
       alert.innerHTML = "";
-    }, 3000);
+    }, 2000);
   }
 }
 function deletetask() {
-
   let deleteinput = document.getElementById("deleteinput").value;
   if (deleteinput <= todo.length) {
     let alert = document.getElementById("alert");
