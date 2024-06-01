@@ -4,4 +4,20 @@ html {
 }
 .changeable{
   margin-top: 7rem;
-]
+}
+input:invalid {
+    border-color: red;
+}
+
+input:valid {
+    border-color: green;
+}
+
+.invalid-feedback {
+    color: red;
+    display: none;
+}
+
+input:invalid +.invalid-feedback {
+    display: block;
+}

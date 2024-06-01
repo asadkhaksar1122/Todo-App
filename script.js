@@ -18,14 +18,16 @@ toggle.addEventListener("change", function () {
             `;
     }
   } else if (toggle.value === "add" && changeable.innerHTML != "") {
-    changeable.innerHTML = `
-            <div class="mb-3">
-                <label for="addinput" class="form-label"> Enter the task</label>
-                <input type="text" class="form-control" id="addinput" placeholder="Enter the task">
-            </div>
-            <div class="d-grid gap-2 col-6 mx-auto">
-                <button class="btn btn-outline-dark" type="button" id="addbtn" onclick="add()"">Add</button>
-            </div>
+    changeable.innerHTML = `<div class="mb-3">
+    <label for="addinput" class="form-label">Enter the task</label>
+    <input type="text" class="form-control" id="addinput" placeholder="Enter the task" required>
+    <div class="invalid-feedback">
+        Please enter the task.
+    </div>
+</div>
+<div class="d-grid gap-2 col-6 mx-auto">
+    <button class="btn btn-outline-dark" type="button" id="addbtn" onclick="add()">Add</button>
+</div>
         `;
   } else if (toggle.value === "delete") {
     // Clear the changeable element without adding new content
@@ -71,36 +73,43 @@ Note This
       `;
   }
 });
+
 function add() {
+  // Get elements
   const addBtn = document.getElementById("addbtn");
   const addInput = document.getElementById("addinput");
   const alert = document.getElementById("alert");
 
-  if (!todo.includes(addInput.value)) {
-    todo.unshift(addInput.value);
+  // Get input value and parse it to integer
+  let inputValue = addInput.value;
+
+  // Check if input is valid
+  if (inputValue.length > 1 && !todo.includes(inputValue)) {
+    // Add task to the beginning of the todo array
+    todo.unshift(inputValue);
     addInput.value = "";
 
+    // Display success alert
     alert.innerHTML = `
       <div class="alert alert-success alert-dismissible fade show" role="alert">
         <strong>Task Added!</strong> The task has been added and you can now check it in the list of tasks.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     `;
-
     setTimeout(() => {
       alert.innerHTML = "";
-    }, 3000);
+    }, 2000);
   } else {
+    // Display error alert when task already exists
     alert.innerHTML = `
       <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong>Task Already Exists!</strong> The task you entered already exists in the list.
+        <strong>Task Already Exists!</strong> The task you're trying to add already exists in the list.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     `;
-
     setTimeout(() => {
       alert.innerHTML = "";
-    }, 3000);
+    }, 2000);
   }
 }
 function deletetask() {
