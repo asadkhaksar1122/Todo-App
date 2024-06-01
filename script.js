@@ -2,6 +2,11 @@ console.log("enter");
 let todo = [];
 let toggle = document.getElementById("toggle");
 let changeable = document.getElementsByClassName("changeable")[0];
+let body = document.querySelector("body");
+document.addEventListener("DOMContentLoaded", function () {
+  toggle.value = "add";
+  toggle.dispatchEvent(new Event("change"));
+});
 
 toggle.addEventListener("change", function () {
   if (toggle.value === "don't show") {
@@ -76,7 +81,7 @@ function add() {
   const addInput = document.getElementById("addinput");
   const alert = document.getElementById("alert");
 
-  if (!todo.includes(addInput.value)) {
+  if (!todo.includes(addInput.value)&& addInput.value.length>1) {
     todo.unshift(addInput.value);
     addInput.value = "";
 
@@ -90,7 +95,7 @@ function add() {
     setTimeout(() => {
       alert.innerHTML = "";
     }, 3000);
-  } else {
+  } else if (todo.includes(addInput.value)) {
     alert.innerHTML = `
       <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <strong>Task Already Exists!</strong> The task you entered already exists in the list.
@@ -98,14 +103,22 @@ function add() {
       </div>
     `;
 
-    setTimeout(() => {
-      alert.innerHTML = "";
-    }, 2000);
   }
+  else {
+     alert.innerHTML = `
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Invalid task</strong> The task you entered is invalid.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    `;
+  }
+      setTimeout(() => {
+        alert.innerHTML = "";
+      }, 2000);
 }
 function deletetask() {
   let deleteinput = document.getElementById("deleteinput").value;
-  if (deleteinput <= todo.length) {
+  if (deleteinput <= todo.length && deleteinput) {
     let alert = document.getElementById("alert");
     convertinput = Number.parseInt(deleteinput);
     todo.splice(convertinput - 1, 1);
@@ -120,13 +133,13 @@ function deletetask() {
     setTimeout(function () {
       alert.innerHTML = "";
     }, 3000);
-  } if (deleteinput > todo.length) {
+  }
+  if (deleteinput > todo.length || deleteinput.length == 0) {
     const form = document.querySelector("form.needs-validation");
     if (!form.checkValidity()) {
       form.classList.add("was-validated");
     }
   }
-
 }
 // bootstrap javascript
 // Example starter JavaScript for disabling form submissions if there are invalid fields
