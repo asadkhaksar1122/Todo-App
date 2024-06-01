@@ -5,6 +5,7 @@ html {
 .changeable{
   margin-top: 7rem;
 }
+<<<<<<< HEAD
 input:invalid {
     border-color: red;
 }
@@ -21,3 +22,6 @@ input:valid {
 input:invalid +.invalid-feedback {
     display: block;
 }
+=======
+
+>>>>>>> feature
